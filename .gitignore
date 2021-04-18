@@ -12,3 +12,6 @@ build
 
 # Environment varibles
 *.env
+
+# Orm Config files
+ormconfig.json

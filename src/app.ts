@@ -1,5 +1,8 @@
 import express from "express";
 import morgan from "morgan"
+import connectDB from "./database/db"
+
+connectDB();
 
 const app = express();
 
