@@ -12,7 +12,6 @@
     // Enable strictNullChecks & noImplicitAny.
     "strictNullChecks": true,
     "noImplicitAny": true,
-    "strict": true,
     "strictFunctionTypes": false,
     "noImplicitThis": false,
     // Search under node_modules for non-relative imports.
