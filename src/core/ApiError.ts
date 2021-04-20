@@ -1,12 +1,18 @@
 import { Response } from "express";
 import { environment } from "../config";
-import { InternalErrorResponse, NotFoundResponse } from "./ApiResponse";
+import {
+	InternalErrorResponse,
+	NotFoundResponse,
+	AuthFailureResponse,
+	BadRequestResponse
+} from "./ApiResponse";
 
 enum ErrorType {
 	NO_ENTRY = "NoEntryError",
 	NO_DATA = "NoDataError",
 	INTERNAL = "InternalError",
-	BAD_REQUEST = "BadRequestError"
+	BAD_REQUEST = "BadRequestError",
+	UNAUTHORIZED = "AuthFailureError"
 }
 
 export abstract class ApiError extends Error {
@@ -21,6 +27,10 @@ export abstract class ApiError extends Error {
 				return new NotFoundResponse(err.message).send(res);
 			case ErrorType.INTERNAL:
 				return new InternalErrorResponse(err.message).send(res);
+			case ErrorType.UNAUTHORIZED:
+				return new AuthFailureResponse(err.message).send(res);
+			case ErrorType.BAD_REQUEST:
+				return new BadRequestResponse(err.message).send(res);
 			default: {
 				let message = err.message;
 				if (environment == "prod") message = "Something went wrong!";
@@ -51,5 +61,11 @@ export class InternalError extends ApiError {
 export class BadRequestError extends ApiError {
 	constructor(message = "Bad Request") {
 		super(ErrorType.BAD_REQUEST, message);
+	}
+}
+
+export class AuthFailureError extends ApiError {
+	constructor(message = "Invalid Credentials") {
+		super(ErrorType.UNAUTHORIZED, message);
 	}
 }

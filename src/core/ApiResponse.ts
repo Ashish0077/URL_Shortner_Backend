@@ -86,3 +86,15 @@ export class InternalErrorResponse extends ApiResponse {
 		super(StatusCode.FAILURE, ResponseStatus.INTERNAL_ERROR, message);
 	}
 }
+
+export class AuthFailureResponse extends ApiResponse {
+	constructor(message = "Authentication Failure") {
+		super(StatusCode.FAILURE, ResponseStatus.UNAUTHORIZED, message);
+	}
+}
+
+export class BadRequestResponse extends ApiResponse {
+	constructor(message = "Bad Parameters") {
+		super(StatusCode.FAILURE, ResponseStatus.BAD_REQUEST, message);
+	}
+}
