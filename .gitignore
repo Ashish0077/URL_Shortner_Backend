@@ -2,7 +2,7 @@
 .idea
 
 # ignore vs code project config files
-.vs
+.vscode
 
 # ignore 3rd party lib
 node_modules

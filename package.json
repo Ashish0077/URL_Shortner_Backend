@@ -1,46 +1,49 @@
 {
-  "name": "url_shortner_backend",
-  "version": "1.0.0",
-  "description": "Backend for a URL-shortening service.",
-  "main": "index.js",
-  "scripts": {
-    "start": "npm run build && npm run serve",
-    "serve": "node -r dotenv/config build/server.js",
-    "build": "npm run clean && npm run build-ts",
-    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
-    "watch-node": "npx nodemon -r dotenv/config build/server.js",
-    "clean": "npx rimraf ./build",
-    "build-ts": "npx tsc",
-    "watch-ts": "npx tsc -w",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Ashish0077/URL_Shortner_Backend.git"
-  },
-  "author": "Ashish Arora",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Ashish0077/URL_Shortner_Backend/issues"
-  },
-  "homepage": "https://github.com/Ashish0077/URL_Shortner_Backend#readme",
-  "devDependencies": {
-    "@types/express": "^4.17.11",
-    "@types/morgan": "^1.9.2",
-    "@types/node": "^14.14.41",
-    "concurrently": "^6.0.2",
-    "dotenv": "^8.2.0",
-    "nodemon": "^2.0.7",
-    "rimraf": "^3.0.2",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.2.4"
-  },
-  "dependencies": {
-    "express": "^4.17.1",
-    "morgan": "^1.10.0",
-    "mysql": "^2.18.1",
-    "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.32"
-  }
+	"name": "url_shortner_backend",
+	"version": "1.0.0",
+	"description": "Backend for a URL-shortening service.",
+	"main": "index.js",
+	"scripts": {
+		"start": "npm run build && npm run serve",
+		"serve": "node -r dotenv/config build/server.js",
+		"build": "npm run clean && npm run build-ts",
+		"watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+		"watch-node": "npx nodemon -r dotenv/config build/server.js",
+		"clean": "npx rimraf ./build",
+		"build-ts": "npx tsc",
+		"watch-ts": "npx tsc -w",
+		"lint": "npx prettier --write .",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Ashish0077/URL_Shortner_Backend.git"
+	},
+	"author": "Ashish Arora",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Ashish0077/URL_Shortner_Backend/issues"
+	},
+	"homepage": "https://github.com/Ashish0077/URL_Shortner_Backend#readme",
+	"devDependencies": {
+		"@types/express": "^4.17.11",
+		"@types/morgan": "^1.9.2",
+		"@types/node": "^14.14.41",
+		"@typescript-eslint/eslint-plugin": "^4.22.0",
+		"concurrently": "^6.0.2",
+		"dotenv": "^8.2.0",
+		"nodemon": "^2.0.7",
+		"rimraf": "^3.0.2",
+		"ts-node": "^9.1.1",
+		"typescript": "^4.2.4"
+	},
+	"dependencies": {
+		"express": "^4.17.1",
+		"morgan": "^1.10.0",
+		"mysql": "^2.18.1",
+		"prettier": "^2.2.1",
+		"reflect-metadata": "^0.1.13",
+		"typeorm": "^0.2.32"
+	}
 }

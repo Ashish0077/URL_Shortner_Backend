@@ -1,24 +1,30 @@
-import { Column, CreateDateColumn, Generated, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+	Column,
+	CreateDateColumn,
+	Generated,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn
+} from "typeorm";
 
 export default abstract class BaseModel {
-    @PrimaryGeneratedColumn()
-    id: number;
-    
-    @Column()
-    @Generated("uuid")
-    uuid: string;
-    
-    @CreateDateColumn()
-    createdAt: Date;
+	@PrimaryGeneratedColumn()
+	id: number;
 
-    @UpdateDateColumn()
-    updatedAt: Date;
+	@Column()
+	@Generated("uuid")
+	uuid: string;
 
-    toJson() {
-        return {...this, id: undefined};
-    }
+	@CreateDateColumn()
+	createdAt: Date;
 
-    constructor(model: Partial<any>) {
-        Object.assign(this, model);
-    }
+	@UpdateDateColumn()
+	updatedAt: Date;
+
+	toJson() {
+		return { ...this, id: undefined };
+	}
+
+	constructor(model: Partial<any>) {
+		Object.assign(this, model);
+	}
 }
