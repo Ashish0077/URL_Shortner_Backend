@@ -1,6 +1,8 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import morgan from "morgan";
 import { getCustomRepository } from "typeorm";
+import { environment } from "./config";
+import { ApiError, InternalError } from "./core/ApiError";
 import connectDB from "./database/db";
 import LinkRepo from "./database/repository/LinkRepo";
 import routesV1 from "./routes/v1/routes";
@@ -28,5 +30,17 @@ app.get(
 		res.redirect(`http://${link.longUrl}`);
 	})
 );
+
+// Middleware Error Handler
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+	if (err instanceof ApiError) {
+		ApiError.handle(err, res);
+	} else {
+		if (environment == "dev") {
+			return res.status(500).send(err.message);
+		}
+		ApiError.handle(new InternalError(), res);
+	}
+});
 
 export default app;
