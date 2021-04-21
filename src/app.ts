@@ -7,6 +7,7 @@ import connectDB from "./database/db";
 import LinkRepo from "./database/repository/LinkRepo";
 import routesV1 from "./routes/v1/routes";
 import asyncHandler from "./utils/asyncHandler";
+import url from "url";
 
 connectDB();
 
@@ -27,7 +28,10 @@ app.get(
 		if (!link) throw new Error("short link does not exist");
 		link.clickCount++;
 		linkRepo.save(link);
-		res.redirect(`http://${link.longUrl}`);
+		if (!link.longUrl.startsWith("https") && !link.longUrl.startsWith("http"))
+			link.longUrl = `http://${link.longUrl}`;
+		const longUrl = new URL(link.longUrl);
+		res.redirect(longUrl.toString());
 	})
 );
 
