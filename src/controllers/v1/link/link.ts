@@ -34,3 +34,10 @@ export const deleteLink = asyncHandler(async (req: ProtectedRequest, res: Respon
 	await linkRepo.delete({ id: link.id });
 	new SuccessMsgResponse("Successfully Deleted!").send(res);
 });
+
+export const getAllLinks = asyncHandler(async (req: ProtectedRequest, res: Response) => {
+	const links = await getCustomRepository(LinkRepo).findAllLinksOfUser(req.user);
+	new SuccessResponse("success", {
+		links: links
+	}).send(res);
+});

@@ -1,6 +1,6 @@
 import express from "express";
 import authentication from "../../../auth/authentication";
-import { createLink, getLink, deleteLink } from "../../../controllers/v1/link/link";
+import { createLink, getLink, deleteLink, getAllLinks } from "../../../controllers/v1/link/link";
 
 const router = express.Router();
 
@@ -11,6 +11,7 @@ const router = express.Router();
 router.use("/", authentication);
 
 router.post("/", createLink);
+router.get("/all", getAllLinks);
 router.get("/:uuid", getLink);
 router.delete("/:uuid", deleteLink);
 

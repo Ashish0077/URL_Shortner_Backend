@@ -1,5 +1,6 @@
 import { EntityRepository, Repository } from "typeorm";
 import Link from "../model/Link";
+import User from "../model/User";
 
 @EntityRepository(Link)
 export default class LinkRepo extends Repository<Link> {
@@ -9,5 +10,9 @@ export default class LinkRepo extends Repository<Link> {
 
 	findByShortUrl(shortUrl: string): Promise<Link | undefined> {
 		return this.findOne({ shortUrl: shortUrl });
+	}
+
+	findAllLinksOfUser(user: User): Promise<Array<Link>> {
+		return this.find({ user: user });
 	}
 }
