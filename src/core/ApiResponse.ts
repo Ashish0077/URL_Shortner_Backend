@@ -13,7 +13,8 @@ enum ResponseStatus {
 // API response status codes indicate whether a specific API request has been successfully completed.
 enum StatusCode {
 	SUCCESS = "10000",
-	FAILURE = "10001"
+	FAILURE = "10001",
+	INVALID_ACCESS_TOKEN = "10002"
 }
 
 // This class will act as base class for all other types of responses.
@@ -96,5 +97,18 @@ export class AuthFailureResponse extends ApiResponse {
 export class BadRequestResponse extends ApiResponse {
 	constructor(message = "Bad Parameters") {
 		super(StatusCode.FAILURE, ResponseStatus.BAD_REQUEST, message);
+	}
+}
+
+export class AccessTokenErrorResponse extends ApiResponse {
+	private instruction = "refresh_token";
+
+	constructor(message = "Access token invalid") {
+		super(StatusCode.INVALID_ACCESS_TOKEN, ResponseStatus.UNAUTHORIZED, message);
+	}
+
+	send(res: Response): Response {
+		res.setHeader("instruction", this.instruction);
+		return super.prepare<AccessTokenErrorResponse>(res, this);
 	}
 }

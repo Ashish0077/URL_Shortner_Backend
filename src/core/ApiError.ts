@@ -4,7 +4,8 @@ import {
 	InternalErrorResponse,
 	NotFoundResponse,
 	AuthFailureResponse,
-	BadRequestResponse
+	BadRequestResponse,
+	AccessTokenErrorResponse
 } from "./ApiResponse";
 
 enum ErrorType {
@@ -14,7 +15,8 @@ enum ErrorType {
 	BAD_REQUEST = "BadRequestError",
 	UNAUTHORIZED = "AuthFailureError",
 	BAD_TOKEN = "BadTokenError",
-	TOKEN_EXPIRED = "TokenExpiredError"
+	TOKEN_EXPIRED = "TokenExpiredError",
+	ACCESS_TOKEN = "AccessTokenError"
 }
 
 export abstract class ApiError extends Error {
@@ -35,6 +37,8 @@ export abstract class ApiError extends Error {
 				return new AuthFailureResponse(err.message).send(res);
 			case ErrorType.BAD_REQUEST:
 				return new BadRequestResponse(err.message).send(res);
+			case ErrorType.ACCESS_TOKEN:
+				return new AccessTokenErrorResponse(err.message).send(res);
 			default: {
 				let message = err.message;
 				if (environment == "prod") message = "Something went wrong!";
@@ -83,5 +87,11 @@ export class BadTokenError extends ApiError {
 export class TokenExpiredError extends ApiError {
 	constructor(message = "Token is expired.") {
 		super(ErrorType.TOKEN_EXPIRED, message);
+	}
+}
+
+export class AccessTokenError extends ApiError {
+	constructor(message = "Invalid access token") {
+		super(ErrorType.ACCESS_TOKEN, message);
 	}
 }
