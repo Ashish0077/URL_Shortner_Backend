@@ -12,7 +12,9 @@ enum ErrorType {
 	NO_DATA = "NoDataError",
 	INTERNAL = "InternalError",
 	BAD_REQUEST = "BadRequestError",
-	UNAUTHORIZED = "AuthFailureError"
+	UNAUTHORIZED = "AuthFailureError",
+	BAD_TOKEN = "BadTokenError",
+	TOKEN_EXPIRED = "TokenExpiredError"
 }
 
 export abstract class ApiError extends Error {
@@ -27,6 +29,8 @@ export abstract class ApiError extends Error {
 				return new NotFoundResponse(err.message).send(res);
 			case ErrorType.INTERNAL:
 				return new InternalErrorResponse(err.message).send(res);
+			case ErrorType.BAD_TOKEN:
+			case ErrorType.TOKEN_EXPIRED:
 			case ErrorType.UNAUTHORIZED:
 				return new AuthFailureResponse(err.message).send(res);
 			case ErrorType.BAD_REQUEST:
@@ -67,5 +71,17 @@ export class BadRequestError extends ApiError {
 export class AuthFailureError extends ApiError {
 	constructor(message = "Invalid Credentials") {
 		super(ErrorType.UNAUTHORIZED, message);
+	}
+}
+
+export class BadTokenError extends ApiError {
+	constructor(message = "Token is not valid") {
+		super(ErrorType.BAD_TOKEN, message);
+	}
+}
+
+export class TokenExpiredError extends ApiError {
+	constructor(message = "Token is expired.") {
+		super(ErrorType.TOKEN_EXPIRED, message);
 	}
 }

@@ -7,6 +7,9 @@
 # ignore 3rd party lib
 node_modules
 
+# ignore key files
+*.pem
+
 # Ignore built files
 build
 
