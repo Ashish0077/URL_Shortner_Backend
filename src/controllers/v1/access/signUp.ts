@@ -5,6 +5,9 @@ import UserRepo from "../../../database/repository/UserRepo";
 import { BadRequestError } from "../../../core/ApiError";
 import bcrypt from "bcrypt";
 import { SuccessResponse } from "../../../core/ApiResponse";
+import KeystoreRepo from "../../../database/repository/KeystoreRepo";
+import crypto from "crypto";
+import { createToken } from "../../../auth/authUtils";
 
 export const signUp = asyncHandler(async (req: Request, res: Response) => {
 	const userRepo = getCustomRepository(UserRepo);
@@ -17,7 +20,20 @@ export const signUp = asyncHandler(async (req: Request, res: Response) => {
 		password: passwordHash
 	});
 	await userRepo.save(createdUser);
+
+	const accessTokenKey = crypto.randomBytes(64).toString("hex");
+	const refreshTokenKey = crypto.randomBytes(64).toString("hex");
+
+	const keystoreRepo = getCustomRepository(KeystoreRepo);
+	const keystore = keystoreRepo.create({
+		client: createdUser,
+		primaryKey: accessTokenKey,
+		secondaryKey: refreshTokenKey
+	});
+	await keystoreRepo.save(keystore);
+	const tokens = await createToken(createdUser, keystore.primaryKey, keystore.secondaryKey);
 	new SuccessResponse("Signup Successful", {
-		user: createdUser
+		user: createdUser,
+		tokens: tokens
 	}).send(res);
 });
