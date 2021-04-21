@@ -1,12 +1,12 @@
 # URL_Shortner_Backend
 <p>
-    <img src="banner.jpg">
+    <img src="https://github.com/Ashish0077/URL_Shortner_Backend/blob/main/github_assets/banner.jpg">
 </p>
 It is URL Shortening service that will help you in shortening your url by which you can get a more precised version of your url at ease.
 
 ## 3RE Architecture: Router, RouteHandler, ResponseHandler, ErrorHandler
 <p align="center">
-    <img src="3RE.png">
+    <img src="https://github.com/Ashish0077/URL_Shortner_Backend/blob/main/github_assets/3RE.png">
 </p>
 
 ## How to build and run this project
