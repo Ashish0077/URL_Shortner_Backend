@@ -21,7 +21,7 @@
 		"url": "git+https://github.com/Ashish0077/URL_Shortner_Backend.git"
 	},
 	"author": "Ashish Arora",
-	"license": "ISC",
+	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/Ashish0077/URL_Shortner_Backend/issues"
 	},
