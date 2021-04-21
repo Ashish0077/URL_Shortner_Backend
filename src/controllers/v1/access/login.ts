@@ -8,6 +8,7 @@ import crypto from "crypto";
 import { SuccessResponse } from "../../../core/ApiResponse";
 import KeystoreRepo from "../../../database/repository/KeystoreRepo";
 import { createToken } from "../../../auth/authUtils";
+import _ from "lodash";
 
 export const login = asyncHandler(async (req: Request, res: Response) => {
 	const userRepo = getCustomRepository(UserRepo);
@@ -31,7 +32,7 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
 	else await keystoreRepo.update({ client: user }, keystore);
 	const tokens = await createToken(user, keystore.primaryKey, keystore.secondaryKey);
 	new SuccessResponse("Login Success.", {
-		user: user,
+		user: _.omit(user, ["password", "id"]),
 		tokens: tokens
 	}).send(res);
 });

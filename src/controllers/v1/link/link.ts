@@ -6,12 +6,13 @@ import asyncHandler from "../../../utils/asyncHandler";
 import { BadRequestError, NoEntryError } from "../../../core/ApiError";
 import { SuccessMsgResponse, SuccessResponse } from "../../../core/ApiResponse";
 import { ProtectedRequest } from "app-request";
+import _ from "lodash";
 
 export const getLink = asyncHandler(async (req: ProtectedRequest, res: Response) => {
 	const link = await getCustomRepository(LinkRepo).findByUuid(req.params.uuid);
 	if (!link) throw new NoEntryError("Link does not exist.");
 	link.shortUrl = `${req.protocol}://${req.get("host")}/${link.shortUrl}`;
-	new SuccessResponse("success", link).send(res);
+	new SuccessResponse("success", { link: _.omit(link, ["id"]) }).send(res);
 });
 
 export const createLink = asyncHandler(async (req: ProtectedRequest, res: Response) => {
@@ -24,7 +25,7 @@ export const createLink = asyncHandler(async (req: ProtectedRequest, res: Respon
 	});
 	await linkRepo.save(link);
 	link.shortUrl = `${req.protocol}://${req.get("host")}/${link.shortUrl}`;
-	new SuccessResponse("success", link).send(res);
+	new SuccessResponse("success", { link: _.omit(link, ["id", "user"]) }).send(res);
 });
 
 export const deleteLink = asyncHandler(async (req: ProtectedRequest, res: Response) => {
@@ -37,7 +38,10 @@ export const deleteLink = asyncHandler(async (req: ProtectedRequest, res: Respon
 
 export const getAllLinks = asyncHandler(async (req: ProtectedRequest, res: Response) => {
 	const links = await getCustomRepository(LinkRepo).findAllLinksOfUser(req.user);
-	new SuccessResponse("success", {
-		links: links
-	}).send(res);
+	const result: Array<any> = [];
+	for (let link of links) {
+		link.shortUrl = `${req.protocol}://${req.get("host")}/${link.shortUrl}`;
+		result.push(_.omit(link, ["id"]));
+	}
+	new SuccessResponse("success", { links: result }).send(res);
 });

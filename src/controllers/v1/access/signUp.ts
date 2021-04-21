@@ -8,6 +8,7 @@ import { SuccessResponse } from "../../../core/ApiResponse";
 import KeystoreRepo from "../../../database/repository/KeystoreRepo";
 import crypto from "crypto";
 import { createToken } from "../../../auth/authUtils";
+import _ from "lodash";
 
 export const signUp = asyncHandler(async (req: Request, res: Response) => {
 	const userRepo = getCustomRepository(UserRepo);
@@ -33,7 +34,7 @@ export const signUp = asyncHandler(async (req: Request, res: Response) => {
 	await keystoreRepo.save(keystore);
 	const tokens = await createToken(createdUser, keystore.primaryKey, keystore.secondaryKey);
 	new SuccessResponse("Signup Successful", {
-		user: createdUser,
+		user: _.omit(createdUser, ["password", "id"]),
 		tokens: tokens
 	}).send(res);
 });
