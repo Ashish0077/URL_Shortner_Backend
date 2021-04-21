@@ -1,5 +1,5 @@
-import { readFile } from "node:fs";
-import { promisify } from "node:util";
+import { readFile } from "fs";
+import { promisify } from "util";
 import path from "path";
 import { InternalError, TokenExpiredError, BadTokenError } from "./ApiError";
 import { sign, verify } from "jsonwebtoken";
