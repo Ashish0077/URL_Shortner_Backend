@@ -11,6 +11,7 @@ import { createToken } from "../../../auth/authUtils";
 import _ from "lodash";
 
 export const login = asyncHandler(async (req: Request, res: Response) => {
+	if (!req.body.email || !req.body.password) throw new BadRequestError("Bad Parameters");
 	const userRepo = getCustomRepository(UserRepo);
 	const user = await userRepo.findByEmail(req.body.email);
 	if (!user) throw new BadRequestError("User not registered");
