@@ -1,15 +1,15 @@
 # URL_Shortner_Backend
-<p>
-    <img src="https://github.com/Ashish0077/URL_Shortner_Backend/blob/main/github_assets/banner.jpg">
-</p>
-It is URL Shortening service that will help you in shortening your url by which you can get a more precised version of your url at ease.
+
+![](github_assets/banner.jpg)
+
+It is a URL Shortening service that will help you in shortening your url by which you can get a more precised version of your URL at ease.
 
 ## 3RE Architecture: Router, RouteHandler, ResponseHandler, ErrorHandler
-<p align="center">
-    <img src="https://github.com/Ashish0077/URL_Shortner_Backend/blob/main/github_assets/3RE.png">
-</p>
+
+![](github_assets/3RE.png)
 
 ## How to build and run this project
+
 * Clone this repository.
 * Execute `npm install`
 * Make sure MySQL is installed your system.
@@ -21,7 +21,9 @@ It is URL Shortening service that will help you in shortening your url by which 
 * Provide ```username```, ```password``` and ```database``` info in **ormconfig.json** for typeorm to properly connect to the Database.
 * Provide ```NODE_ENV```, ```PORT```, ```TOKEN_ISSUER``` , ```TOKEN_AUDIENCE``` in **.env** file
 * Execute `npm start`
- ## Project Directory Structure
+
+## Project Directory Structure
+
 ```
 .
 ├── keys
@@ -80,7 +82,9 @@ It is URL Shortening service that will help you in shortening your url by which 
 ├── README.md
 └── tsconfig.json
 ```
+
 ## API Examples
+
 * Signup
     ```
     POST /v1/signup/basic
@@ -123,7 +127,6 @@ It is URL Shortening service that will help you in shortening your url by which 
     }
     ```
 * Create Link
-    * Method and Headers
     ```
     POST /v1/link/
     Host: localhost:3000
@@ -149,8 +152,11 @@ It is URL Shortening service that will help you in shortening your url by which 
     ```
 
 ### Find this project useful ? :heart:
-* Support it by clicking the :star: button on the upper right of this page. :v:
+
+* Support it by clicking the 🌟 button on the upper right of this page. ❤️
+
 ### License
+
 ```
 MIT License
 
